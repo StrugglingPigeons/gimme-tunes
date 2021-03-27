@@ -1,13 +1,9 @@
 
+// initialize app namespace object
+
 const playlistApp = {};
 
-
-
-
-
-
-
-
+// this function takes in the artist name and country selected. The artist name is used to determine the artist's unique MusicBrainz ID number, which can be passed to the next API. The country parameter
 
 playlistApp.getArtistId = (artist, country) => {
     
@@ -41,14 +37,16 @@ playlistApp.getPlaylist = (artistId, country) => {
         url: 'https://proxy.hackeryou.com',
         responseType:'json',
         params: {
+            // after much trial, the only way to get a successful call from this API was to include these fields in the reqUrl value. The other values were able to be appended in key values and used appropriately.
             reqUrl: `http://musicovery.com/api/V6/playlist.php?&fct=getfromartist&artistmbid=${artistId}&focusera=true`,
             listenercountry: country,
             obscureartists: true,
             focusgenre: false
             }
         }).then((res) => {
+            // this data point correlates to the array of track objects, which we will need to extract from to display our playlist.
             const playlist = res.data.tracks.track;
-            // add a for each statement here to extract artist name and song title, and append them to the unordered list
+            // add a for each statement here to extract artist name and song title, create a list element for artist and song, and append that list item to the unordered list.
             playlist.forEach(function(track) {
                 const artistName = track.artist_display_name; 
                 const trackTitle = track.title;
