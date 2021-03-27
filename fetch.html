@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    
+    
+    <label for="artistName" class="sr-only">Please enter the name of a musical artist</label>
+    <input type="text" placeholder="Artist Name" name="artistName" id="sr-only" required>
+    
+    
+    <select name="countryCodes" id="countryCodes">
+        <option value="Choose a Country" value="us">Choose a country</option>
+    </select>
+    
+    <button type="submit">Get my Playlist</button>
+    <ul>
+
+    </ul>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="countrycodes.js"></script>
+    <script src="script.js"></script>
+
+    <script>
+
+
+        // const artistInput = document.querySelector('input');
+        // const submitButton = document.querySelector('button');
+        // let count = 0;
+        
+        // for (country in countries) {
+        //     const countryCodes = document.getElementById('countryCodes');
+        //     const listOption = document.createElement('option');
+        //     listOption.innerText = countryNames[count];
+        //     count++;
+        //     listOption.value = countries[country];
+        //     countryCodes.appendChild(listOption);
+        // }
+
+
+
+
+
+
+
+        // this is a fetch request to return an artist's mbID number for the musicovery API request. DON'T MESS WITH THIS!
+
+        
+
+
+//         function getArtistId(artist, country) {
+
+//             const url = new URL('http://musicbrainz.org/ws/2/artist');
+
+//             url.search = new URLSearchParams({
+//                 fmt: 'json',
+//                 query: artist
+
+//         });
+
+//         fetch(url)
+//             .then(function (res) {
+//                 return res.json();
+//             }).then(function (data) {
+//                 const artistId = data.artists[0].id;
+//                 getPlaylist(artistId, country);
+//             });
+
+//         }
+        
+
+
+
+// // this function takes the artist ID number from the previous function and uses the musicovery API to generate a list of 12 similar artists and songs based on that artist input.
+
+
+
+//         function getPlaylist(artistId, country) {
+
+//         axios({
+//             method:'GET',
+//             url: 'https://proxy.hackeryou.com',
+//             responseType:'json',
+//             params: {
+//                 reqUrl: `http://musicovery.com/api/V6/playlist.php?&fct=getfromartist&artistmbid=${artistId}&focusera=true`,
+//                 listenercountry: country,
+//                 obscureartists: true,
+//                 focusgenre: false
+//             }}).then((res) => {
+//                 const playlist = res.data.tracks.track;
+
+//                 // add a for each statement here to extract artist name and song title
+//                 playlist.forEach(function(track) {
+//                     const artistName = track.artist_display_name; 
+//                     const trackTitle = track.title;
+//                     const ulElement = document.querySelector('ul');
+//                     const listElement = document.createElement('li');
+//                     listElement.textContent = `${artistName} - ${trackTitle}`
+//                     ulElement.appendChild(listElement);
+//                     console.log(`${artistName} - ${trackTitle}`)
+//                 })
+//             })
+//             .catch(err => { console.log('error')})
+// }
+
+
+
+//     submitButton.addEventListener('click', function() {
+//         const artist = artistInput.value;
+//         const country = countryCodes.value;
+//         getArtistId(artist, country);
+//     })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function getReleaseId(artistName, trackTitle) {
+
+//     axios({
+//             method:'GET',
+//             url: `http://musicbrainz.org/ws/2/release/?query=release:${trackTitle}+artist:${artistName}`,
+//             // http://musicbrainz.org/ws/2/release/?query=release:breathe+artist:kylie+minogue
+//             fmt: 'json',
+//         })
+//         .then(function(result) {
+//             // this gets the release mbid number needed for the search in the next API. 
+//             const artId = result.data.releases[2].id;
+//             getArt(artId)
+
+//         });
+
+//         }
+
+
+
+
+// function getArt(artistMbId) {
+
+//             axios({
+//                 method:'GET',
+//                 url: `http://coverartarchive.org/release/${artistMbId}`,
+//                 responseType: 'json',
+//             })
+//             .then(function(result) {
+//                 // this gets the release mbid number needed for the search in the next API. 
+//                 console.log(result.data.images[0].thumbnails['250']);
+//                 const divElement = document.querySelector('.box');
+//                 const imgElement = document.createElement('img');
+//                 imgElement.src = result.data.images[0].thumbnails['250'];
+//                 divElement.appendChild(imgElement);
+//             });
+//         }
+
+
+
+
+    </script>
+</body>
+
+</html>
