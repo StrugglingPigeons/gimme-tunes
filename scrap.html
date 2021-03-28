@@ -7,115 +7,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+
+
+div {
+    position: relative;
+    padding: 100px;
+}
+input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+}
+
+.toggleLabel {
+    padding-right: 110px;
+    margin: 15px 0;
+    position: relative;
+}
+
+/* make the toggle's background */
+.toggleLabel::before {
+    content: '';
+    width: 43px;
+    height: 43px;
+    background-color: red;
+    border-radius: 5px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: 0.2s ease;
+}
+
+/* make the toggle switch */
+.toggleLabel::after {
+    display: block;
+    content: '';
+    width: 32px;
+    height: 32px;
+    background-color: #444;
+    border: 4px solid #000;
+    border-radius: 5px;
+    position: absolute;
+    transition: 0.2s ease;
+    bottom: -18px;
+    right: 8px;
+    z-index: 10;
+}
+
+/* change toggle switch position when checked */
+
+input[type="checkbox"]:checked + .toggleLabel::after {
+    bottom: -26px;
+    right: 0px;
+}
+
+input[type="checkbox"]:checked + .toggleLabel::before {
+    background-image: none;
+}
+
+/* change background color when focused on (for accessibility) */
+
+input[type="checkbox"]:focus + .toggleLabel::before {
+    background-color: #ed6b55;
+}
+
+</style>
+
 
 <body>
 
-
-    <div class="box">
-
-    </div>
-
+<div>
+    <input type="checkbox" id="switch1">
+    <label for="switch1" class="toggleLabel">Switch</label>
+</div>
 
 
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
-    <script>
-        // this is a fetch request to return an artist's mbID number for the musicovery API request. DON'T MESS WITH THIS!
-
-        const url = new URL('http://musicbrainz.org/ws/2/artist');
-
-        url.search = new URLSearchParams({
-            fmt: 'json',
-            query: 'B-52s'
-
-        });
-
-        fetch(url)
-            .then(function (res) {
-                return res.json();
-            }).then(function (data) {
-                const artistId = data.artists[0].id;
-                getPlaylist(artistId);
-            })
-        
-
-
-
-// this function takes the artist ID number from the previous function and uses the musicovery API to generate a list of 12 similar artists and songs based on that artist input.
-
-
-
-        function getPlaylist(artistId) {
-
-        axios({
-            method:'GET',
-            url: 'https://proxy.hackeryou.com',
-            responseType:'json',
-            params: {
-                reqUrl: `http://musicovery.com/api/V6/playlist.php?&fct=getfromartist&artistmbid=${artistId}&focusera=true`,
-                listenercountry: 'us',
-                obscureartists: false,
-            }}).then((res) => {
-                const playlist = res.data.tracks.track;
-
-                // add a for each statement here to extract artist name and song title
-                playlist.forEach(function(track) {
-                    const artistName = track.artist_display_name; 
-                    const trackTitle = track.title;
-                    console.log(`${artistName} - ${trackTitle}`)
-                })
-        });
-}
-
-
-
-
-
-
-
-// function getReleaseId(artistName, trackTitle) {
-
-//     axios({
-//             method:'GET',
-//             url: `http://musicbrainz.org/ws/2/release/?query=release:${trackTitle}+artist:${artistName}`,
-//             // http://musicbrainz.org/ws/2/release/?query=release:breathe+artist:kylie+minogue
-//             fmt: 'json',
-//         })
-//         .then(function(result) {
-//             // this gets the release mbid number needed for the search in the next API. 
-//             const artId = result.data.releases[2].id;
-//             getArt(artId)
-
-//         });
-
-//         }
-
-
-
-
-// function getArt(artistMbId) {
-
-//             axios({
-//                 method:'GET',
-//                 url: `http://coverartarchive.org/release/${artistMbId}`,
-//                 responseType: 'json',
-//             })
-//             .then(function(result) {
-//                 // this gets the release mbid number needed for the search in the next API. 
-//                 console.log(result.data.images[0].thumbnails['250']);
-//                 const divElement = document.querySelector('.box');
-//                 const imgElement = document.createElement('img');
-//                 imgElement.src = result.data.images[0].thumbnails['250'];
-//                 divElement.appendChild(imgElement);
-//             });
-//         }
-
-
-
-
-    </script>
+    
 </body>
 
 </html>

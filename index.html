@@ -5,26 +5,47 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 
 <body>
 
+    <div class="wrapper">
 
-    
-    
-    <label for="artistName" class="sr-only">Please enter the name of a musical artist</label>
-    <input type="text" placeholder="Artist Name" name="artistName" id="sr-only" required>
-    
-    
-    <select name="countryCodes" id="countryCodes">
-        <option value="Choose a Country" value="us">Choose a country</option>
-    </select>
-    
-    <button type="submit">Get my Playlist</button>
-    <ul>
+        <div class="controls">
 
-    </ul>
+            <div class="popKnob">
+        
+                
+                <div class="popControl">
+                    <div class="knob"></div>
+                    <div class="knobShadow"></div>
+                    <input type="range" min="0" max="100" value="1" oninput="playlistApp.rotate(this.value)" onchange="playlistApp.rotate(this.value)">
+                    <label for="popularity" class="sr-only">Please enter the level of artist populartity you want:</label>
+                      <input type="text" class="popText" id="popularity" name="popularity">
+                </div>
+            </div>
+
+            <div class="textInputs">
+                <label for="artistName" class="sr-only">Please enter the name of a musical artist</label>
+                <input class="artistName" type="text" placeholder="Artist Name" name="artistName" id="sr-only" required>
+                
+                <select name="countryCodes" id="countryCodes">
+                    <option value="us" value="us">Choose a country</option>
+                </select>
+                
+                <button type="submit">Get my Playlist</button>
+            </div>
+        </div>
+        
+        <ul class="playlist off">
+    
+        </ul>
+
+    </div>
+    
+    
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="countrycodes.js"></script>
