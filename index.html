@@ -16,20 +16,18 @@
         <div class="controls">
 
             <div class="popKnob">
-        
-                
                 <div class="popControl">
                     <div class="knob"></div>
                     <div class="knobShadow"></div>
-                    <input type="range" min="0" max="100" value="1" oninput="playlistApp.rotate(this.value)" onchange="playlistApp.rotate(this.value)">
+                    <input type="range" min="0" max="100" value="60" oninput="playlistApp.rotate(this.value)" onchange="playlistApp.rotate(this.value)" class="popularityKnob">
                     <label for="popularity" class="sr-only">Please enter the level of artist populartity you want:</label>
-                      <input type="text" class="popText" id="popularity" name="popularity">
+                      <input type="text" class="popText" id="popularity" name="popularity" oninput="playlistApp.rotate(this.value)">
                 </div>
             </div>
 
             <div class="textInputs">
                 <label for="artistName" class="sr-only">Please enter the name of a musical artist</label>
-                <input class="artistName" type="text" placeholder="Artist Name" name="artistName" id="sr-only" required>
+                <input class="artistName" type="text" placeholder="Artist Name" name="artistName" required>
                 
                 <select name="countryCodes" id="countryCodes">
                     <option value="us" value="us">Choose a country</option>
@@ -37,6 +35,17 @@
                 
                 <button type="submit">Get my Playlist</button>
             </div>
+
+            <div class="extraOptions">
+                <div class="switches">
+                        <input type="checkbox" id="similarGenres">
+                        <label for="similarGenres" class="toggleLabel">Focus on different genres?</label>
+                        <input type="checkbox" id="obscureArtists">
+                        <label for="obscureArtists" class="toggleLabel">More obscure artists?</label>
+                </div>
+                
+            </div>
+
         </div>
         
         <ul class="playlist off">

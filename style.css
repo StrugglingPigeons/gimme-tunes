@@ -23,19 +23,36 @@ html {
 
 .controls {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     border: 10px solid black;
     border-radius: 20px;
 }
 
 .popKnob,
+.textInputs,
+.extraOptions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% / 3);
+}
+
 .textInputs {
+    align-items: normal;
+}
+
+.textInputs input,
+.textInputs select,
+.textInputs button {
+    margin: 10px 0;
+}
+
+.switches {
     display: flex;
     flex-direction: column;
 }
-
-
 
 .playlist {
     display: grid;
@@ -85,8 +102,8 @@ html {
   .knob::before {
     display: block;
     content: '';
-    width:8px;
-    height:8px;
+    width:18px;
+    height:12px;
     border-bottom-right-radius: 50%;
     border-top-right-radius: 50%;
     background-color: black;
@@ -100,7 +117,7 @@ html {
     width:100px;
     height:100px;
     border-radius: 50%;
-    background: #444;
+    background: black;
     border: 4px solid #000;
     z-index: -10;
     position: absolute;
@@ -117,11 +134,113 @@ html {
   }
   
   .popText {
-    width: 20%;
+    width: 45px;
     position: relative;
-    top: 15px;
-    left: 25px;
+    top: -10px;
+    left: -30px;
+    text-align: center;
   }
+
+label {
+    font-size: 0.8rem;
+}
+
+input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+}
+
+.toggleLabel {
+    padding-right: 110px;
+    margin: 15px 0 15px 30px;
+    position: relative;
+}
+
+/* make the toggle's background */
+.toggleLabel::before {
+    position: absolute;
+    transition: 0.1s ease;
+}
+
+/* make the toggle switch */
+.toggleLabel::after {
+    display: block;
+    content: '';
+    width: 40px;
+    height: 40px;
+    background-color: mediumaquamarine;
+    border: 4px solid #000;
+    border-radius: 10px;
+    position: absolute;
+    transition: 0.1s ease;
+    bottom: -0px;
+    right: 40px;
+    z-index: 10;
+    box-shadow: 1px 1px black,
+      2px 2px black,
+      3px 3px black,
+      4px 4px black,
+      5px 5px black,
+      6px 6px black;
+}
+
+/* change toggle switch position when checked */
+
+input[type="checkbox"]:checked + .toggleLabel::after {
+    bottom: -8px;
+    right: 34px;
+    animation: push 0.1s ease;
+    box-shadow: none;
+    background-color: rgb(82, 184, 150);
+}
+
+input[type="checkbox"]:checked + .toggleLabel::before {
+    background-image: none;
+}
+
+/* change background color when focused on (for accessibility) */
+
+input[type="checkbox"]:focus + .toggleLabel::before {
+    background-color: #ed6b55;
+}
+
+@keyframes push {
+  17% {
+    box-shadow: 1px 1px #444444,
+      2px 2px #444444,
+      3px 3px #444444,
+      4px 4px #444444,
+      5px 5px #444444;
+  }
+  34% {
+    box-shadow: 1px 1px black,
+      2px 2px black,
+      3px 3px black,
+      4px 4px black;
+  }
+  51% {
+    box-shadow: 1px 1px black,
+      2px 2px black,
+      3px 3px black;
+  }
+  68% {
+    box-shadow: 1px 1px black,
+      2px 2px black;
+  }
+  82% {
+    box-shadow: 1px 1px black;
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+
+
+
+
+
+
+
 
 
 
@@ -135,8 +254,7 @@ html {
 @media (max-width: 768px) {
 
     .playlist {
-        display: flex;
-        flex-direction: column; 
+        grid-template-columns: 1fr 
     }
 
     .playlist li:nth-child(even) {
@@ -144,5 +262,22 @@ html {
         padding-left: 20px;
     }
 
+
+
 }
-@media (max-width: 480px) {}
+@media (max-width: 580px) {
+
+    .controls {
+        flex-direction: column;
+    }
+
+    .textInputs {
+        width: 75%;
+    }
+
+
+    .popKnob,
+    .switches {
+        order: 1;
+    }
+}

@@ -5,7 +5,7 @@ const playlistApp = {};
 
 // this function takes in the artist name and country selected. The artist name is used to determine the artist's unique MusicBrainz ID number, which can be passed to the next API. The country parameter
 
-playlistApp.getArtistId = (artist, country, popularity) => {
+playlistApp.getArtistId = (artist) => {
     
     playlistApp.playlistBox.classList.remove('off');
     playlistApp.playlistBox.textContent = "Loading playlist...";
@@ -24,7 +24,7 @@ playlistApp.getArtistId = (artist, country, popularity) => {
         }).then( (data) => {
             // this data point gathers the MusicBrainz ID number for the artist, which is passed to the musicovery API in the next function to generate the playlist.
             const artistId = data.artists[0].id;
-            playlistApp.getPlaylist(artistId, country, popularity);
+            playlistApp.getPlaylist(artistId);
         });
 }
 
@@ -33,8 +33,11 @@ playlistApp.getArtistId = (artist, country, popularity) => {
 
 // this function takes the artist ID number from the previous function, as well as any other properties defined by the user in th UI, and uses the musicovery API to generate a list of 12 similar artists and songs based on the user input values.
 
-playlistApp.getPlaylist = (artistId, country, popularity) => {
-    
+playlistApp.getPlaylist = (artistId) => {
+    const country = playlistApp.countryCodes.value;
+    const popularity = playlistApp.popularityBox.value;
+    const simGenre = playlistApp.similarGenres.checked; 
+    const obscArt = playlistApp.obscureArtists.checked;
     // API call - to avoid a CORS error, a call to the Juno proxy server must be used. 
     axios({
         method:'GET',
@@ -44,8 +47,8 @@ playlistApp.getPlaylist = (artistId, country, popularity) => {
             // after much trial, the only way to get a successful call from this API was to include these fields in the reqUrl value. The other values were able to be appended in key values and used appropriately.
             reqUrl: `http://musicovery.com/api/V6/playlist.php?&fct=getfromartist&artistmbid=${artistId}&focusera=true`,
             listenercountry: country,
-            obscureartists: true,
-            focusgenre: false,
+            obscureartists: obscArt,
+            focusgenre: simGenre,
             popularitymin: popularity
             }
         }).then((res) => {
@@ -69,12 +72,15 @@ playlistApp.getPlaylist = (artistId, country, popularity) => {
 // app initialize function - declaring global variables, event listener for button, and for in loop to populate dropdown list of countries
 
 playlistApp.init = function() {
+    playlistApp.popularityKnob = document.querySelector('.popularityKnob')
+    playlistApp.popularityBox = document.getElementById('popularity');
     playlistApp.artistInput = document.querySelector('.artistName');
     playlistApp.countryCodes = document.getElementById('countryCodes');
     playlistApp.submitButton = document.querySelector('button');
+    playlistApp.similarGenres = document.getElementById('similarGenres');
+    playlistApp.obscureArtists = document.getElementById('obscureArtists');
     playlistApp.count = 0;
     playlistApp.playlistBox = document.querySelector('.playlist');
-    playlistApp.popularityKnob = document.getElementById('popularity');
 
     for (country in countries) {
         const listOption = document.createElement('option');
@@ -86,9 +92,8 @@ playlistApp.init = function() {
 
     playlistApp.submitButton.addEventListener('click', function() {
         const artist = playlistApp.artistInput.value;
-        const country = playlistApp.countryCodes.value;
-        const popularity = playlistApp.popularityKnob.value;
-        playlistApp.getArtistId(artist, country, popularity);
+        playlistApp.getArtistId(artist);
+        
     })
 
     playlistApp.rotate = (value) => {
