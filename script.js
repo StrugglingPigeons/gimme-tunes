@@ -3,13 +3,23 @@
 
 const playlistApp = {};
 
+playlistApp.popularityBox = document.getElementById('popularity');
+playlistApp.submitButton = document.querySelector('button');
+playlistApp.playlistBox = document.querySelector('.playlist');
+playlistApp.appendButton = document.createElement('button')
+playlistApp.appendButton.classList.add('appendButton');
+playlistApp.appendButton.textContent = "Add to Playlist";
+playlistApp.newList = true;
+
 // this function takes in the artist name and country selected. The artist name is used to determine the artist's unique MusicBrainz ID number, which can be passed to the next API. The country parameter
 
 playlistApp.getArtistId = (artist) => {
     
     playlistApp.playlistBox.classList.remove('off');
-    playlistApp.playlistBox.textContent = "Loading playlist...";
-    playlistApp.playlistBox.classList.add('loading');
+    playlistApp.loading = document.createElement('li');
+    playlistApp.loading.classList.add('loading');
+    playlistApp.loading.textContent = "Loading playlist...";
+    document.querySelector('ul').appendChild(playlistApp.loading);
     // this is a fetch request to return an artist's mbID number, which is necessary to complete the musicovery API request.
     const url = new URL('http://musicbrainz.org/ws/2/artist');
     // this api defaults to XML delivery - the 'fmt: json' is necessary to receive the data in JSON format. 
@@ -34,11 +44,15 @@ playlistApp.getArtistId = (artist) => {
 // this function takes the artist ID number from the previous function, as well as any other properties defined by the user in th UI, and uses the musicovery API to generate a list of 12 similar artists and songs based on the user input values.
 
 playlistApp.getPlaylist = (artistId) => {
-    const country = playlistApp.countryCodes.value;
-    const popularity = playlistApp.popularityBox.value;
-    const simEra = playlistApp.similarEras.checked; 
-    const obscArt = playlistApp.obscureArtists.checked;
+    
+    const countryCodes = document.getElementById('countryCodes');
+    const similarEras = document.getElementById('similarEras');
+    const similarGenre = document.getElementById('similarGenre');
     const apiKey = 'x0f621n9';
+    const country = countryCodes.value;
+    const popularity = playlistApp.popularityBox.value;
+    const simEra = similarEras.checked; 
+    const simGenre = similarGenre.checked;
     // API call - to avoid a CORS error, a call to the Juno proxy server must be used. 
     axios({
         method:'GET',
@@ -49,63 +63,78 @@ playlistApp.getPlaylist = (artistId) => {
             reqUrl: `http://musicovery.com/api/V6/playlist.php?&fct=getfromartist&artistmbid=${artistId}&focusera=${simEra}`,
             apikey: apiKey,
             listenercountry: country,
-            obscureartists: obscArt,
-            resultsnumber: popularity
+            similargenres: simGenre,
+            popularitymax: popularity
             }
         }).then((res) => {
+            document.querySelector('ul').removeChild(playlistApp.loading);
             // this data point correlates to the array of track objects, which we will need to extract from to display our playlist.
             const playlist = res.data.tracks.track;
-            playlistApp.playlistBox.textContent = "";
+            // if (playlistApp.newList) {
+                
+            // }
+            
             // add a for each statement here to extract artist name and song title, create a list element for artist and song, and append that list item to the unordered list.
+            const ulElement = document.querySelector('ul');
             playlist.forEach(function(track) {
                 const artistName = track.artist_display_name; 
                 const trackTitle = track.title;
-                const ulElement = document.querySelector('ul');
                 const listElement = document.createElement('li');
                 listElement.textContent = `${artistName} ● ${trackTitle}`
                 ulElement.appendChild(listElement);
             })
+            ulElement.appendChild(playlistApp.appendButton);
             playlistApp.playlistBox.classList.remove('loading');
         })
-        .catch(err => { console.log('error')})
+        .catch(error => { 
+            playlistApp.playlistBox.classList.add('loading');
+            playlistApp.playlistBox.textContent = `No tunes found! Please check spelling or select a new artist.`;
+    })
+    
 }
 
 // app initialize function - declaring global variables, event listener for button, and for in loop to populate dropdown list of countries
 
 playlistApp.init = function() {
-    playlistApp.popularityKnob = document.querySelector('.popularityKnob')
-    playlistApp.popularityBox = document.getElementById('popularity');
-    playlistApp.artistInput = document.querySelector('.artistName');
-    playlistApp.countryCodes = document.getElementById('countryCodes');
-    playlistApp.submitButton = document.querySelector('button');
-    playlistApp.similarEras = document.getElementById('similarEras');
-    playlistApp.obscureArtists = document.getElementById('obscureArtists');
-    playlistApp.count = 0;
-    playlistApp.playlistBox = document.querySelector('.playlist');
+    
+    const popularityKnob = document.querySelector('.popularityKnob');
+    
 
-    for (country in countries) {
-        const listOption = document.createElement('option');
-        listOption.innerText = countryNames[playlistApp.count];
-        playlistApp.count++;
-        listOption.value = countries[country];
-        countryCodes.appendChild(listOption);
-    }
-
-    playlistApp.submitButton.addEventListener('click', function() {
-        const artist = playlistApp.artistInput.value;
-        playlistApp.getArtistId(artist);
-        
+    popularityKnob.addEventListener('input', function (){
+        playlistApp.rotate(this.value);
     })
 
-    playlistApp.rotate = (value) => {
-        document.querySelector('.knob').style.transform=`rotate(${value * 1.8 }deg)`;
-         document.getElementById('popularity').value = value;
-    }
+    playlistApp.popularityBox.addEventListener('input', function() {
+        playlistApp.rotate(this.value);
+    })
+
+
+    playlistApp.submitButton.addEventListener('click', function() {
+        playlistApp.newList = true;
+        playlistApp.playlistBox.textContent = "";
+        const artistInput = document.querySelector('.artistName');
+        const artist = artistInput.value;
+        playlistApp.getArtistId(artist);
+    })
+
+
+    playlistApp.appendButton.addEventListener('click', function() {
+        playlistApp.newList = false;
+        document.querySelector('ul').removeChild(playlistApp.appendButton)
+        const artistInput = document.querySelector('.artistName');
+        const artist = artistInput.value;
+        playlistApp.getArtistId(artist);
+    })
+
 
 }
 
+playlistApp.rotate = (value) => {
+    document.querySelector('.knob').style.transform=`rotate(${value * 1.8 }deg)`;
+     document.getElementById('popularity').value = value;
+}
 
-
+// call initialize function to start up event listeners and kick off app
 playlistApp.init();
 
 

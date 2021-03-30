@@ -12,7 +12,7 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 html {
     font-size: 125%;
-    background: #deba6f;
+    background: #e9d29f;
     font-family: 'Montserrat', sans-serif;
     overflow-x: hidden;
 }
@@ -24,12 +24,12 @@ html {
 }
 
 h1 {
-    font-family: 'Arizonia', sans-serif;
+    font-family: 'Damion', sans-serif;
     text-align: center;
-    font-size: 4rem;
+    font-size: 5rem;
     color: #050505;
-    text-shadow: 3px 3px #ff8c94, 6px 6px #66cdaa;
-    margin: 40px 0;
+    text-shadow: 1px 1px #050505, 6px 6px #ff8c94, 12px 12px #66cdaa;
+    margin: 20px 0;
 }
 
 .controls {
@@ -40,7 +40,9 @@ h1 {
     border: 10px solid #050505;
     border-radius: 29px;
     z-index: -10;
+    background: #ffd3b5;
     box-shadow: 1px 1px #050505, 2px 2px #050505, 4px 4px #050505, 8px 8px #050505, 16px 16px #050505;
+    padding: 20px 0;
 }
 
 .popKnob,
@@ -55,7 +57,6 @@ h1 {
 
 .textInputs {
     align-items: normal;
-    margin-top: 15px;
 }
 
 .textInputs input,
@@ -65,59 +66,64 @@ h1 {
     text-align: center;
 }
 
+.textInputs input {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    border-radius: 10px;
+    border: none;
+    background: #050505;
+    color: #66cdaa;
+    padding: 4px 0;
+}
+
+.playlistButton,
+.appendButton {
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    padding: 10px 0;
+    background-color: #66cdaa;
+    border: 4px solid #050505;
+    border-radius: 10px;
+    box-shadow: 1px 1px #050505, 2px 2px #050505, 3px 3px #050505, 4px 4px #050505, 5px 5px #050505, 6px 6px #050505;
+}
+
+.playlistButton:active {
+    box-shadow: none;
+left: 6px;
+top: 6px;
+}
+
 .switches {
     display: flex;
     flex-direction: column;
 }
 
-.playlist {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    list-style: none;
-    background: #ffd3b5;
-    border: 10px solid #050505;
-    border-radius: 29px;
-    padding: 20px 0;
-    font-size: 0.8rem;
-    margin-top: 40px;
-    box-shadow: 1px 1px #050505, 2px 2px #050505, 4px 4px #050505, 8px 8px #050505, 16px 16px #050505;
-}
-
-.off {
-    display: none;
-}
-
-.loading {
-    /* add some nice stuff for while the API is loading. */
-    color: blue;
-}
-
-.playlist li:nth-child(odd) {
-    text-align: left;
-    padding-left: 20px;
-}
-
-.playlist li:nth-child(even) {
-    text-align: right;
-    padding-right: 20px;
-}
-
-
 .popControl {
     position: relative;
-  }
-  
+    width: 75%;
+}
+
+.popControl p {
+    font-size: 0.8rem;
+    position: absolute;
+}
+
+  /* knob front */
   .knob {
     width:100px;
     height:100px;
     border-radius: 50%;
     background: #ff8c94;
     border:4px solid #050505;
+    position: relative;
+    z-index: 10;
+    bottom: -62px;
+    right: -8px;
     transform:rotate(1deg);
     -ms-transform:rotate(1deg);
     -webkit-transform:rotate(1deg);
   }
-  
+  /* knob marker */
   .knob::before {
     display: block;
     content: '';
@@ -127,41 +133,46 @@ h1 {
     border-top-right-radius: 50%;
     background-color: #050505;
     border:4px solid #050505;
-    position: absolute;
+    position: relative;
     top: 40px;
     left: -3px;
   }
-  
+  /* knob shadow */
   .knobShadow {
-    width:100px;
-    height:100px;
+    display: block;
+    content: '';
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     background: #050505;
-    border: 4px solid #000;
-    z-index: -10;
-    position: absolute;
-    top:10px;
-    left: 10px;
-    box-shadow: 1px 1px #050505,
+    border: 4px solid #050505;
+    position: relative;
+    top: -30px;
+    left: 20px;
   }
   
   input[type="range"] {
     opacity: 0;
-    position: absolute;
-    top: 45px;
-    width: 105px;
+    z-index: 30;
+position: absolute;
+top: 100px;
+left: 5px;
+width: 105px;
   }
   
   .popText {
     width: 55px;
     position: relative;
-    top: -10px;
-    left: -30px;
+    top: -35px;
+    left: 90px;
     text-align: center;
     font-family: 'Press Start 2P', cursive;
     font-size: 0.8rem;
     border-radius: 20px;
     border: none;
+    background: #050505;
+color: #66cdaa;
+padding: 4px 0;
   }
 
 label {
@@ -175,7 +186,7 @@ input[type="checkbox"] {
 
 .toggleLabel {
     padding-right: 110px;
-    margin: 15px 0 15px 30px;
+    margin: 30px 0 30px 30px;
     position: relative;
     width: 110%;
 }
@@ -193,7 +204,7 @@ input[type="checkbox"] {
     width: 40px;
     height: 40px;
     background-color: #66cdaa;
-    border: 4px solid #000;
+    border: 4px solid #050505;
     border-radius: 10px;
     position: absolute;
     transition: 0.1s ease;
@@ -227,6 +238,59 @@ input[type="checkbox"]:checked + .toggleLabel::before {
 input[type="checkbox"]:focus + .toggleLabel::before {
     background-color: #ed6b55;
 }
+
+
+.playlist {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    list-style: none;
+    background: #dcedc2;
+    border: 10px solid #050505;
+    border-radius: 29px;
+    padding: 20px 0;
+    font-size: 0.8rem;
+    margin-top: 40px;
+    box-shadow: 1px 1px #050505, 2px 2px #050505, 4px 4px #050505, 8px 8px #050505, 16px 16px #050505;
+}
+
+.off {
+    display: none;
+}
+
+.loading {
+    /* add some nice stuff for while the API is loading. */
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: #050505;
+    padding: 10px 20px;
+}
+
+.playlist li:nth-child(odd) {
+    text-align: left;
+    padding-left: 20px;
+}
+
+.playlist li:nth-child(even) {
+    text-align: right;
+    padding-right: 20px;
+}
+
+.appendButton {
+    color: #050505;
+    width: 40%;
+    bottom: 0;
+    margin: 20px;
+
+}
+
+.appendButton:active {
+    box-shadow: none;
+    left: 6px;
+    top: 6px;
+}
+
+
 
 @keyframes push {
   17% {
@@ -287,7 +351,6 @@ input[type="checkbox"]:focus + .toggleLabel::before {
     }
 
 
-
 }
 @media (max-width: 580px) {
 
@@ -296,12 +359,37 @@ input[type="checkbox"]:focus + .toggleLabel::before {
     }
 
     .popControl {
-        right: 20px;
+        right: 30px;
+    }
+
+    .knob {
+        width: 80px;
+        height: 80px;
+        right: 6px;
+    }
+
+    .knob::before {
+        width: 12px;
+        height: 8px;
+        top: 30px;
+    }
+
+    .knobShadow {
+        width: 80px;
+        height: 80px;
+        top: -12px;
+        left: 6px;
+    }
+
+    input[type="range"] {
+        top: 90px;
+        left: -10px;
+        width: 85px;
     }
 
     .popText {
-        top: 15px;
-        left: 30px;
+        top: 0px;
+        left: 0px;
     }
 
     .textInputs {
