@@ -5,21 +5,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Arizonia&family=Montserrat&family=Press+Start+2P&display=swap" rel="stylesheet">  
     <link rel="stylesheet" href="style.css">
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
     <title>Document</title>
 </head>
 
 <body>
 
     <div class="wrapper">
-
+        <h1>Gimme Tunes
+        </h1>
         <div class="controls">
 
             <div class="popKnob">
                 <div class="popControl">
                     <div class="knob"></div>
                     <div class="knobShadow"></div>
-                    <input type="range" min="0" max="100" value="60" oninput="playlistApp.rotate(this.value)" onchange="playlistApp.rotate(this.value)" class="popularityKnob">
+                    <input type="range" min="0" max="100" value="1" oninput="playlistApp.rotate(this.value)" onchange="playlistApp.rotate(this.value)" class="popularityKnob">
                     <label for="popularity" class="sr-only">Please enter the level of artist populartity you want:</label>
                       <input type="text" class="popText" id="popularity" name="popularity" oninput="playlistApp.rotate(this.value)">
                 </div>
@@ -38,10 +42,10 @@
 
             <div class="extraOptions">
                 <div class="switches">
-                        <input type="checkbox" id="similarGenres">
-                        <label for="similarGenres" class="toggleLabel">Focus on different genres?</label>
+                        <input type="checkbox" id="similarEras">
+                        <label for="similarEras" class="toggleLabel">Similar eras<br> of music</label>
                         <input type="checkbox" id="obscureArtists">
-                        <label for="obscureArtists" class="toggleLabel">More obscure artists?</label>
+                        <label for="obscureArtists" class="toggleLabel">Add obscure artists</label>
                 </div>
                 
             </div>

@@ -12,6 +12,9 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 html {
     font-size: 125%;
+    background: #deba6f;
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
 }
 
 .wrapper {
@@ -20,13 +23,24 @@ html {
     margin: 0 auto;
 }
 
+h1 {
+    font-family: 'Arizonia', sans-serif;
+    text-align: center;
+    font-size: 4rem;
+    color: #050505;
+    text-shadow: 3px 3px #ff8c94, 6px 6px #66cdaa;
+    margin: 40px 0;
+}
 
 .controls {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    border: 10px solid black;
-    border-radius: 20px;
+    border: 10px solid #050505;
+    border-radius: 29px;
+    z-index: -10;
+    box-shadow: 1px 1px #050505, 2px 2px #050505, 4px 4px #050505, 8px 8px #050505, 16px 16px #050505;
 }
 
 .popKnob,
@@ -41,12 +55,14 @@ html {
 
 .textInputs {
     align-items: normal;
+    margin-top: 15px;
 }
 
 .textInputs input,
 .textInputs select,
 .textInputs button {
     margin: 10px 0;
+    text-align: center;
 }
 
 .switches {
@@ -58,10 +74,13 @@ html {
     display: grid;
     grid-template-columns: 1fr 1fr;
     list-style: none;
-    border: 10px solid black;
-    border-radius: 20px;
+    background: #ffd3b5;
+    border: 10px solid #050505;
+    border-radius: 29px;
     padding: 20px 0;
     font-size: 0.8rem;
+    margin-top: 40px;
+    box-shadow: 1px 1px #050505, 2px 2px #050505, 4px 4px #050505, 8px 8px #050505, 16px 16px #050505;
 }
 
 .off {
@@ -92,8 +111,8 @@ html {
     width:100px;
     height:100px;
     border-radius: 50%;
-    background: pink;
-    border:4px solid black;
+    background: #ff8c94;
+    border:4px solid #050505;
     transform:rotate(1deg);
     -ms-transform:rotate(1deg);
     -webkit-transform:rotate(1deg);
@@ -106,9 +125,9 @@ html {
     height:12px;
     border-bottom-right-radius: 50%;
     border-top-right-radius: 50%;
-    background-color: black;
-    border:4px solid black;
-    position: relative;
+    background-color: #050505;
+    border:4px solid #050505;
+    position: absolute;
     top: 40px;
     left: -3px;
   }
@@ -117,13 +136,13 @@ html {
     width:100px;
     height:100px;
     border-radius: 50%;
-    background: black;
+    background: #050505;
     border: 4px solid #000;
     z-index: -10;
     position: absolute;
     top:10px;
     left: 10px;
-    box-shadow: 1px 1px black,
+    box-shadow: 1px 1px #050505,
   }
   
   input[type="range"] {
@@ -134,11 +153,15 @@ html {
   }
   
   .popText {
-    width: 45px;
+    width: 55px;
     position: relative;
     top: -10px;
     left: -30px;
     text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    border-radius: 20px;
+    border: none;
   }
 
 label {
@@ -154,6 +177,7 @@ input[type="checkbox"] {
     padding-right: 110px;
     margin: 15px 0 15px 30px;
     position: relative;
+    width: 110%;
 }
 
 /* make the toggle's background */
@@ -168,27 +192,27 @@ input[type="checkbox"] {
     content: '';
     width: 40px;
     height: 40px;
-    background-color: mediumaquamarine;
+    background-color: #66cdaa;
     border: 4px solid #000;
     border-radius: 10px;
     position: absolute;
     transition: 0.1s ease;
     bottom: -0px;
-    right: 40px;
+    right: 80px;
     z-index: 10;
-    box-shadow: 1px 1px black,
-      2px 2px black,
-      3px 3px black,
-      4px 4px black,
-      5px 5px black,
-      6px 6px black;
+    box-shadow: 1px 1px #050505,
+      2px 2px #050505,
+      3px 3px #050505,
+      4px 4px #050505,
+      5px 5px #050505,
+      6px 6px #050505;
 }
 
 /* change toggle switch position when checked */
 
 input[type="checkbox"]:checked + .toggleLabel::after {
     bottom: -8px;
-    right: 34px;
+    right: 74px;
     animation: push 0.1s ease;
     box-shadow: none;
     background-color: rgb(82, 184, 150);
@@ -213,22 +237,22 @@ input[type="checkbox"]:focus + .toggleLabel::before {
       5px 5px #444444;
   }
   34% {
-    box-shadow: 1px 1px black,
-      2px 2px black,
-      3px 3px black,
-      4px 4px black;
+    box-shadow: 1px 1px #050505,
+      2px 2px #050505,
+      3px 3px #050505,
+      4px 4px #050505;
   }
   51% {
-    box-shadow: 1px 1px black,
-      2px 2px black,
-      3px 3px black;
+    box-shadow: 1px 1px #050505,
+      2px 2px #050505,
+      3px 3px #050505;
   }
   68% {
-    box-shadow: 1px 1px black,
-      2px 2px black;
+    box-shadow: 1px 1px #050505,
+      2px 2px #050505;
   }
   82% {
-    box-shadow: 1px 1px black;
+    box-shadow: 1px 1px #050505;
   }
   100% {
     box-shadow: none;
@@ -268,16 +292,24 @@ input[type="checkbox"]:focus + .toggleLabel::before {
 @media (max-width: 580px) {
 
     .controls {
-        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
+    .popControl {
+        right: 20px;
+    }
+
+    .popText {
+        top: 15px;
+        left: 30px;
     }
 
     .textInputs {
-        width: 75%;
+        width: 95%;
+        order: 1;
     }
 
-
-    .popKnob,
     .switches {
-        order: 1;
+        margin-right: 20px;
     }
 }

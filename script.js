@@ -36,8 +36,9 @@ playlistApp.getArtistId = (artist) => {
 playlistApp.getPlaylist = (artistId) => {
     const country = playlistApp.countryCodes.value;
     const popularity = playlistApp.popularityBox.value;
-    const simGenre = playlistApp.similarGenres.checked; 
+    const simEra = playlistApp.similarEras.checked; 
     const obscArt = playlistApp.obscureArtists.checked;
+    const apiKey = 'x0f621n9';
     // API call - to avoid a CORS error, a call to the Juno proxy server must be used. 
     axios({
         method:'GET',
@@ -45,11 +46,11 @@ playlistApp.getPlaylist = (artistId) => {
         responseType:'json',
         params: {
             // after much trial, the only way to get a successful call from this API was to include these fields in the reqUrl value. The other values were able to be appended in key values and used appropriately.
-            reqUrl: `http://musicovery.com/api/V6/playlist.php?&fct=getfromartist&artistmbid=${artistId}&focusera=true`,
+            reqUrl: `http://musicovery.com/api/V6/playlist.php?&fct=getfromartist&artistmbid=${artistId}&focusera=${simEra}`,
+            apikey: apiKey,
             listenercountry: country,
             obscureartists: obscArt,
-            focusgenre: simGenre,
-            popularitymin: popularity
+            resultsnumber: popularity
             }
         }).then((res) => {
             // this data point correlates to the array of track objects, which we will need to extract from to display our playlist.
@@ -77,7 +78,7 @@ playlistApp.init = function() {
     playlistApp.artistInput = document.querySelector('.artistName');
     playlistApp.countryCodes = document.getElementById('countryCodes');
     playlistApp.submitButton = document.querySelector('button');
-    playlistApp.similarGenres = document.getElementById('similarGenres');
+    playlistApp.similarEras = document.getElementById('similarEras');
     playlistApp.obscureArtists = document.getElementById('obscureArtists');
     playlistApp.count = 0;
     playlistApp.playlistBox = document.querySelector('.playlist');
