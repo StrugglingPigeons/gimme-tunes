@@ -32,17 +32,24 @@ h1 {
     margin: 20px 0;
 }
 
+p {
+    text-align: center;
+    font-size: 0.8rem;
+    margin: 20px 0;
+}
+
 .controls {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    border: 10px solid #050505;
-    border-radius: 29px;
-    z-index: -10;
-    background: #ffd3b5;
-    box-shadow: 1px 1px #050505, 2px 2px #050505, 4px 4px #050505, 8px 8px #050505, 16px 16px #050505;
     padding: 20px 0;
+    border: 10px solid #050505;
+    z-index: -10;
+    border-radius: 29px;
+    background: #ffd3b5;
+    /* for 3D effect of radio controls */
+    box-shadow: 1px 1px #050505, 2px 2px #050505, 4px 4px #050505, 8px 8px #050505, 16px 16px #050505;
 }
 
 .popKnob,
@@ -55,56 +62,12 @@ h1 {
     width: calc(100% / 3);
 }
 
-.textInputs {
-    align-items: normal;
-}
-
-.textInputs input,
-.textInputs select,
-.textInputs button {
-    margin: 10px 0;
-    text-align: center;
-}
-
-.textInputs input {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 0.7rem;
-    border-radius: 10px;
-    border: none;
-    background: #050505;
-    color: #66cdaa;
-    padding: 4px 0;
-}
-
-.playlistButton,
-.appendButton {
-    font-family: 'Montserrat', sans-serif;
-    position: relative;
-    padding: 10px 0;
-    background-color: #66cdaa;
-    border: 4px solid #050505;
-    border-radius: 10px;
-    box-shadow: 1px 1px #050505, 2px 2px #050505, 3px 3px #050505, 4px 4px #050505, 5px 5px #050505, 6px 6px #050505;
-}
-
-.playlistButton:active {
-    box-shadow: none;
-left: 6px;
-top: 6px;
-}
-
-.switches {
-    display: flex;
-    flex-direction: column;
-}
-
 .popControl {
     position: relative;
     width: 75%;
 }
 
 .popControl p {
-    font-size: 0.8rem;
     position: absolute;
 }
 
@@ -119,10 +82,11 @@ top: 6px;
     z-index: 10;
     bottom: -62px;
     right: -8px;
-    transform:rotate(1deg);
+    transform: rotate(1deg);
     -ms-transform:rotate(1deg);
     -webkit-transform:rotate(1deg);
   }
+
   /* knob marker */
   .knob::before {
     display: block;
@@ -137,6 +101,7 @@ top: 6px;
     top: 40px;
     left: -3px;
   }
+
   /* knob shadow */
   .knobShadow {
     display: block;
@@ -154,10 +119,10 @@ top: 6px;
   input[type="range"] {
     opacity: 0;
     z-index: 30;
-position: absolute;
-top: 100px;
-left: 5px;
-width: 105px;
+    position: absolute;
+    top: 100px;
+    left: 5px;
+    width: 105px;
   }
   
   .popText {
@@ -166,14 +131,65 @@ width: 105px;
     top: -35px;
     left: 90px;
     text-align: center;
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Press Start 2P', sans-serif;
     font-size: 0.8rem;
     border-radius: 20px;
-    border: none;
+    border: 2px solid #dcedc2;
+    box-shadow: 0 0 6px #66cdaa;
     background: #050505;
-color: #66cdaa;
-padding: 4px 0;
+    color: #66cdaa;
+    padding: 4px 0;
   }
+
+.textInputs {
+    align-items: normal;
+}
+
+.textInputs input,
+.textInputs select,
+.textInputs button {
+    margin: 10px 0;
+    text-align: center;
+}
+
+.textInputs input,
+.textInputs select {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    color: #66cdaa;
+    padding: 4px 0;
+    border-radius: 10px;
+    background-color: #050505;
+    border: 2px solid #dcedc2;
+    box-shadow: 0 0 6px #66cdaa;
+}
+
+.textInputs select {
+    height: 30px;
+    background-image: url('./assets/wheel.svg');
+    background-repeat: no-repeat;
+    background-position: right 0 top 0;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.playlistButton,
+.appendButton {
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    padding: 10px 0;
+    background-color: #66cdaa;
+    border: 4px solid #050505;
+    border-radius: 10px;
+    box-shadow: 1px 1px #050505, 2px 2px #050505, 3px 3px #050505, 4px 4px #050505, 5px 5px #050505, 6px 6px #050505;
+}
+
+.switches {
+    display: flex;
+    flex-direction: column;
+}
 
 label {
     font-size: 0.8rem;
@@ -236,9 +252,14 @@ input[type="checkbox"]:checked + .toggleLabel::before {
 /* change background color when focused on (for accessibility) */
 
 input[type="checkbox"]:focus + .toggleLabel::before {
-    background-color: #ed6b55;
+    background-color: azure;
 }
 
+.playlistButton:active {
+    box-shadow: none;
+    left: 6px;
+    top: 6px;
+}
 
 .playlist {
     display: grid;
@@ -258,8 +279,7 @@ input[type="checkbox"]:focus + .toggleLabel::before {
 }
 
 .loading {
-    /* add some nice stuff for while the API is loading. */
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Press Start 2P', sans-serif;
     font-size: 0.8rem;
     letter-spacing: 2px;
     color: #050505;
@@ -277,11 +297,9 @@ input[type="checkbox"]:focus + .toggleLabel::before {
 }
 
 .appendButton {
-    color: #050505;
     width: 40%;
     bottom: 0;
     margin: 20px;
-
 }
 
 .appendButton:active {
@@ -290,8 +308,16 @@ input[type="checkbox"]:focus + .toggleLabel::before {
     top: 6px;
 }
 
+footer p {
+    margin-top: 40px;
+}
 
+a {
+    text-decoration: none;
+    color: #050505;
+}
 
+/* animations for push switches */
 @keyframes push {
   17% {
     box-shadow: 1px 1px #444444,
@@ -323,21 +349,7 @@ input[type="checkbox"]:focus + .toggleLabel::before {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* media queries */
 
 @media (max-width: 768px) {
 
@@ -349,8 +361,6 @@ input[type="checkbox"]:focus + .toggleLabel::before {
         text-align: left;
         padding-left: 20px;
     }
-
-
 }
 @media (max-width: 580px) {
 

@@ -3,19 +3,23 @@
 
 const playlistApp = {};
 
+// declare variables for interactive inputs on page
 playlistApp.popularityBox = document.getElementById('popularity');
 playlistApp.submitButton = document.querySelector('button');
 playlistApp.playlistBox = document.querySelector('.playlist');
+// declare variable to create new element that will appear once a playlist has been generated
 playlistApp.appendButton = document.createElement('button')
 playlistApp.appendButton.classList.add('appendButton');
-playlistApp.appendButton.textContent = "Add to Playlist";
+playlistApp.appendButton.textContent = "Gimme more tunes!";
+// boolean variable to determine if the user wishes to create a new playlist or add to the existing one.
 playlistApp.newList = true;
 
 // this function takes in the artist name and country selected. The artist name is used to determine the artist's unique MusicBrainz ID number, which can be passed to the next API. The country parameter
 
 playlistApp.getArtistId = (artist) => {
-    
+    // this enables the playlist to be displayed on the page
     playlistApp.playlistBox.classList.remove('off');
+    // this creates a list element to let the user know the playlist is loading while they wait.
     playlistApp.loading = document.createElement('li');
     playlistApp.loading.classList.add('loading');
     playlistApp.loading.textContent = "Loading playlist...";
@@ -38,13 +42,10 @@ playlistApp.getArtistId = (artist) => {
         });
 }
 
-
-
-
 // this function takes the artist ID number from the previous function, as well as any other properties defined by the user in th UI, and uses the musicovery API to generate a list of 12 similar artists and songs based on the user input values.
 
 playlistApp.getPlaylist = (artistId) => {
-    
+    // these variables correlate to different elements of the form on the page that the API can take in to generate a playlist.
     const countryCodes = document.getElementById('countryCodes');
     const similarEras = document.getElementById('similarEras');
     const similarGenre = document.getElementById('similarGenre');
@@ -69,12 +70,8 @@ playlistApp.getPlaylist = (artistId) => {
         }).then((res) => {
             document.querySelector('ul').removeChild(playlistApp.loading);
             // this data point correlates to the array of track objects, which we will need to extract from to display our playlist.
-            const playlist = res.data.tracks.track;
-            // if (playlistApp.newList) {
-                
-            // }
-            
-            // add a for each statement here to extract artist name and song title, create a list element for artist and song, and append that list item to the unordered list.
+            const playlist = res.data.tracks.track; 
+            // this for each statement extracts the artist name and song title, creates a list element for artist and song, and appends that list item to the unordered list.
             const ulElement = document.querySelector('ul');
             playlist.forEach(function(track) {
                 const artistName = track.artist_display_name; 
@@ -83,12 +80,14 @@ playlistApp.getPlaylist = (artistId) => {
                 listElement.textContent = `${artistName} ● ${trackTitle}`
                 ulElement.appendChild(listElement);
             })
+            // this adds the button to append to the existing playlist, and removes the loading class with a different font.
             ulElement.appendChild(playlistApp.appendButton);
             playlistApp.playlistBox.classList.remove('loading');
         })
         .catch(error => { 
+            // in the event that the user selects an artist that the API is unable to generate a playlist for, the user receives a message displayed underneath the radio on the page.
             playlistApp.playlistBox.classList.add('loading');
-            playlistApp.playlistBox.textContent = `No tunes found! Please check spelling or select a new artist.`;
+            playlistApp.playlistBox.textContent = `No tunes found! Please try again.`;
     })
     
 }
@@ -97,9 +96,9 @@ playlistApp.getPlaylist = (artistId) => {
 
 playlistApp.init = function() {
     
+    // these listeners affect the rotation of the popularity knob if the user uses the range slider or the text input.
     const popularityKnob = document.querySelector('.popularityKnob');
     
-
     popularityKnob.addEventListener('input', function (){
         playlistApp.rotate(this.value);
     })
@@ -108,27 +107,27 @@ playlistApp.init = function() {
         playlistApp.rotate(this.value);
     })
 
-
+    // event listener for when the user submits the artist name and other fields on the form.
     playlistApp.submitButton.addEventListener('click', function() {
         playlistApp.newList = true;
         playlistApp.playlistBox.textContent = "";
-        const artistInput = document.querySelector('.artistName');
+        const artistInput = document.getElementById('artistName');
         const artist = artistInput.value;
         playlistApp.getArtistId(artist);
     })
 
-
+    // event listener for if the user wants to generate more selections from the same artist.
     playlistApp.appendButton.addEventListener('click', function() {
         playlistApp.newList = false;
         document.querySelector('ul').removeChild(playlistApp.appendButton)
-        const artistInput = document.querySelector('.artistName');
+        const artistInput = document.getElementById('artistName');
         const artist = artistInput.value;
         playlistApp.getArtistId(artist);
     })
 
 
 }
-
+// this function changes the css of the knob in order to make it spin!
 playlistApp.rotate = (value) => {
     document.querySelector('.knob').style.transform=`rotate(${value * 1.8 }deg)`;
      document.getElementById('popularity').value = value;

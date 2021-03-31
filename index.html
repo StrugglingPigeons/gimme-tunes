@@ -13,63 +13,69 @@
 </head>
 
 <body>
-
+    <!-- start wrapper -->
     <div class="wrapper">
-        <h1>Gimme Tunes
-        </h1>
-        <div class="controls">
+        <section class="intro">
+            <h1>Gimme Tunes</h1>
+            <p>Enter an artist or band name and have a playlist of songs generated! Use the knob to adjust the popularity of the artists in the playlist (the higher the number, the more popular), use the dropdown menu if you'd like some artists from a different country, and use the buttons to further tweak your playlist settings! Every playlist is different!</p>
+        </section>
 
-            <div class="popKnob">
-                <div class="popControl">
-                    <p>Artist popularity</p>
-                    <div class="knob"></div>
-                    <div class="knobShadow"></div>
-                    <input type="range" min="0" max="100" value="1" class="popularityKnob">
-                    <label for="popularity" class="sr-only">Please enter the level of artist populartity you want:</label>
-                      <input type="text" class="popText" id="popularity" name="popularity">
+        <main>
+            <div class="controls">
+                <!-- left side of radio with knob -->
+                <div class="popKnob">
+                    <div class="popControl">
+                        <p>Artist popularity</p>
+                        <!-- these two divs make up the 3D radio knob, and the range slider operates behind it. -->
+                        <div class="knob"></div>
+                        <div class="knobShadow"></div>
+                        <input type="range" min="0" max="100" value="1" class="popularityKnob">
+                        <label for="popularity" class="sr-only">Please enter the level of artist populartity you want:</label>
+                        <input type="text" class="popText" id="popularity" name="popularity">
+                    </div>
                 </div>
-            </div>
+                <!-- middle section of radio with text box for artist name, dropdown with country selection, and submit button -->
+                <div class="textInputs">
 
-            <div class="textInputs">
-                <label for="artistName" class="sr-only">Please enter the name of a musical artist</label>
-                <input class="artistName" type="text" placeholder="Artist Name" name="artistName" required>
-                
-                <select name="countryCodes" id="countryCodes">
-                    <option value="us">Choose country</option>
-                    <option value="fr">France</option>
-                    <option value="de">Germany</option>
-                    <option value="it">Italy</option>
-                    <option value="no">Norway</option>
-                    <option value="es">Spain</option>
-                    <option value="uk">United Kingdom</option>
-                    <option value="us">United States</option>
-                </select>
-                
-                <button type="submit" class="playlistButton">Get New Playlist</button>
-            </div>
-
-            <div class="extraOptions">
-                <div class="switches">
+                    <label for="artistName" class="sr-only">Please enter the name of a musical artist</label>
+                    <input type="text" placeholder="Artist Name" id="artistName" name="artistName" required>
+                    
+                    <label for="countryCodes" class="sr-only">Please select a country you would like to see a few artists from on your playlist.</label>
+                    <select name="countryCodes" id="countryCodes">
+                        <option value="us">Choose country</option>
+                        <option value="fr">France</option>
+                        <option value="de">Germany</option>
+                        <option value="it">Italy</option>
+                        <option value="no">Norway</option>
+                        <option value="es">Spain</option>
+                        <option value="uk">United Kingdom</option>
+                        <option value="us">United States</option>
+                    </select>
+                    
+                    <button type="submit" class="playlistButton">Gimme Tunes!</button>
+                </div>
+                <!-- right side of radio, with two switches to add extra search properties to playlists -->
+                <div class="extraOptions">
+                    <div class="switches">
                         <input type="checkbox" id="similarEras">
-                        <label for="similarEras" class="toggleLabel">Same era<br> of music</label>
+                        <label for="similarEras" class="toggleLabel">Same era&emsp; of music</label>
                         <input type="checkbox" id="similarGenre">
-                        <label for="similarGenre" class="toggleLabel">Same type<br> of music</label>
+                        <label for="similarGenre" class="toggleLabel">Same type&emsp; of music</label>
+                    </div>
                 </div>
-                
             </div>
+            <!-- playlist section -->
+            <ul class="playlist off">
+                <!-- this is where playlist selecttions will be generated by JS -->
+            </ul>
 
-        </div>
+        </main>
+        <!-- begin footer section -->
+        <footer>
+            <p>Created at <strong><a href="https://junocollege.com">Juno College</a></strong> using the <strong><a href="https://musicovery.com">Musicovery</a></strong> and <strong><a href="https://musicbrainz.org/">MusicBrainz</a></strong> API.</p>
+        </footer>
         
-        <ul class="playlist off">
-    
-        </ul>
-
     </div>
-    
-    <footer>
-        <p>Created at Juno College using the Musicovery API and MusicBrainz API.</p>
-    </footer>
-
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
 </body>
