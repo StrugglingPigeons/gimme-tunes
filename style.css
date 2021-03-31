@@ -10,11 +10,16 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 .visually-hidden:not(:focus):not(:active) { position: absolute !important; height: 1px;  width: 1px; overflow: hidden; clip: rect(1px 1px 1px 1px); /* IE6, IE7 */ clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; /* added line */}
 
-html {
+html,
+body {
     font-size: 125%;
     background: #e9d29f;
     font-family: 'Montserrat', sans-serif;
+    position: relative;
     overflow-x: hidden;
+    background-image: url(./assets/rightCenter.svg), url(./assets/topLeft.svg);
+    background-position: right center, left top;
+    background-repeat: no-repeat, no-repeat;
 }
 
 .wrapper {
@@ -48,6 +53,8 @@ p {
     z-index: -10;
     border-radius: 29px;
     background: #ffd3b5;
+    background-image: url(./assets/radio.svg);background-repeat: repeat;
+    background-size: contain;
     /* for 3D effect of radio controls */
     box-shadow: 1px 1px #050505, 2px 2px #050505, 4px 4px #050505, 8px 8px #050505, 16px 16px #050505;
 }
@@ -266,6 +273,9 @@ input[type="checkbox"]:focus + .toggleLabel::before {
     grid-template-columns: 1fr 1fr;
     list-style: none;
     background: #dcedc2;
+    background-image: url(./assets/playlist.svg);
+    background-position: right bottom;
+    background-repeat: no-repeat;
     border: 10px solid #050505;
     border-radius: 29px;
     padding: 20px 0;

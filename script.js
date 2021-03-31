@@ -73,11 +73,12 @@ playlistApp.getPlaylist = (artistId) => {
             const playlist = res.data.tracks.track; 
             // this for each statement extracts the artist name and song title, creates a list element for artist and song, and appends that list item to the unordered list.
             const ulElement = document.querySelector('ul');
-            playlist.forEach(function(track) {
+            playlist.forEach( (track) => {
                 const artistName = track.artist_display_name; 
                 const trackTitle = track.title;
                 const listElement = document.createElement('li');
-                listElement.textContent = `${artistName} ● ${trackTitle}`
+                // innerHTML needs to be used over TextContent in order to make the artist name bold. 
+                listElement.innerHTML = `<strong>${artistName}</strong> ● ${trackTitle}`
                 ulElement.appendChild(listElement);
             })
             // this adds the button to append to the existing playlist, and removes the loading class with a different font.
@@ -94,30 +95,34 @@ playlistApp.getPlaylist = (artistId) => {
 
 // app initialize function - declaring global variables, event listener for button, and for in loop to populate dropdown list of countries
 
-playlistApp.init = function() {
+playlistApp.init = () => {
     
     // these listeners affect the rotation of the popularity knob if the user uses the range slider or the text input.
     const popularityKnob = document.querySelector('.popularityKnob');
-    
+    // 'this' refers to the range slider element object. We need to extract the value property from the range in order to rotate the knob.
     popularityKnob.addEventListener('input', function (){
         playlistApp.rotate(this.value);
     })
-
+    // 'this' refers to the text input element object. We need to extract the value property from the input box in order to rotate the knob.
     playlistApp.popularityBox.addEventListener('input', function() {
         playlistApp.rotate(this.value);
     })
 
     // event listener for when the user submits the artist name and other fields on the form.
-    playlistApp.submitButton.addEventListener('click', function() {
-        playlistApp.newList = true;
-        playlistApp.playlistBox.textContent = "";
+    playlistApp.submitButton.addEventListener('click', () => {
         const artistInput = document.getElementById('artistName');
         const artist = artistInput.value;
-        playlistApp.getArtistId(artist);
+        if (artistInput.value) {
+            playlistApp.newList = true;
+            playlistApp.playlistBox.textContent = "";
+            playlistApp.getArtistId(artist);
+        } else {
+            alert('Please enter an artist or band name.');
+        }
     })
 
     // event listener for if the user wants to generate more selections from the same artist.
-    playlistApp.appendButton.addEventListener('click', function() {
+    playlistApp.appendButton.addEventListener('click', () => {
         playlistApp.newList = false;
         document.querySelector('ul').removeChild(playlistApp.appendButton)
         const artistInput = document.getElementById('artistName');
