@@ -150,6 +150,7 @@ p {
 
 .textInputs {
     align-items: normal;
+    order: 0;
 }
 
 .textInputs input,
@@ -191,6 +192,11 @@ p {
     border: 4px solid #050505;
     border-radius: 10px;
     box-shadow: 1px 1px #050505, 2px 2px #050505, 3px 3px #050505, 4px 4px #050505, 5px 5px #050505, 6px 6px #050505;
+}
+
+/* this is reorganized for accessibility, so users are able to have the option to use the checkboxes before form submission. */
+.extraOptions {
+    order: 1;
 }
 
 .switches {
@@ -259,7 +265,7 @@ input[type="checkbox"]:checked + .toggleLabel::before {
 /* change background color when focused on (for accessibility) */
 
 input[type="checkbox"]:focus + .toggleLabel::before {
-    background-color: azure;
+    border: 2px solid #ff8c94;
 }
 
 .playlistButton:active {

@@ -9,16 +9,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Damion&family=Montserrat&family=Press+Start+2P&display=swap" rel="stylesheet">  
     <link rel="stylesheet" href="style.css">
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
-    <title>Document</title>
+    <link type="image/png" href="./assets/favicon.png" rel="icon">
+    <title>Gimme Tunes!</title>
 </head>
 
 <body>
     <!-- start wrapper -->
     <div class="wrapper">
-        <section class="intro">
+        <header>
             <h1>Gimme Tunes</h1>
-            <p>Enter an artist or band name and have a playlist of songs generated! Use the knob to adjust the popularity of the artists in the playlist (the higher the number, the more popular), use the dropdown menu if you'd like some artists from a different country, and use the buttons on the right to further tweak your playlist settings! Every playlist is different!</p>
-        </section>
+            <p>Enter an artist or band name and have a playlist of songs generated! Use the knob to adjust the popularity of the artists in the playlist (the higher the number, the more popular), use the dropdown menu if you'd like some artists from a different country, and use the buttons on the right to further tweak your playlist settings. Every playlist is different, and you can add to a playlist once you've created one, too!</p>
+        </header>
 
         <main>
             <div class="controls">
@@ -31,10 +32,21 @@
                         <div class="knobShadow"></div>
                         <input type="range" min="0" max="100" value="1" class="popularityKnob">
                         <label for="popularity" class="sr-only">Please enter the level of artist populartity you want:</label>
-                        <input type="text" class="popText" id="popularity" name="popularity" placeholder="10">
+                        <input type="text" class="popText" id="popularity" name="popularity" placeholder="1">
                     </div>
                 </div>
-                <!-- middle section of radio with text box for artist name, dropdown with country selection, and submit button -->
+                
+                <!-- right side of radio, with two switches to add extra search properties to playlists. this is reorganized in CSS for appearance but placed here for accessibility. -->
+                <div class="extraOptions">
+                    <div class="switches">
+                        <input type="checkbox" id="similarEras">
+                        <label for="similarEras" class="toggleLabel">Same era&emsp; of music</label>
+                        <input type="checkbox" id="similarGenre">
+                        <label for="similarGenre" class="toggleLabel">Same type&emsp; of music</label>
+                    </div>
+                </div>
+
+                <!-- middle section of radio with text box for artist name, dropdown with country selection, and submit button. this is reorganized in CSS for appearance but placed here for accessibility. -->
                 <div class="textInputs">
 
                     <label for="artistName" class="sr-only">Please enter the name of a musical artist</label>
@@ -54,15 +66,7 @@
                     
                     <button type="submit" class="playlistButton">Gimme Tunes!</button>
                 </div>
-                <!-- right side of radio, with two switches to add extra search properties to playlists -->
-                <div class="extraOptions">
-                    <div class="switches">
-                        <input type="checkbox" id="similarEras">
-                        <label for="similarEras" class="toggleLabel">Same era&emsp; of music</label>
-                        <input type="checkbox" id="similarGenre">
-                        <label for="similarGenre" class="toggleLabel">Same type&emsp; of music</label>
-                    </div>
-                </div>
+
             </div>
             <!-- playlist section -->
             <ul class="playlist off">
