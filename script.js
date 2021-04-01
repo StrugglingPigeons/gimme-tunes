@@ -25,7 +25,7 @@ playlistApp.getArtistId = (artist) => {
     playlistApp.loading.textContent = "Loading playlist...";
     document.querySelector('ul').appendChild(playlistApp.loading);
     // this is a fetch request to return an artist's mbID number, which is necessary to complete the musicovery API request.
-    const url = new URL('http://musicbrainz.org/ws/2/artist');
+    const url = new URL('https://musicbrainz.org/ws/2/artist');
     // this api defaults to XML delivery - the 'fmt: json' is necessary to receive the data in JSON format. 
     url.search = new URLSearchParams({
         fmt: 'json',
@@ -61,7 +61,7 @@ playlistApp.getPlaylist = (artistId) => {
         responseType:'json',
         params: {
             // after much trial, the only way to get a successful call from this API was to include these fields in the reqUrl value. The other values were able to be appended in key values and used appropriately.
-            reqUrl: `http://musicovery.com/api/V6/playlist.php?&fct=getfromartist&artistmbid=${artistId}&focusera=${simEra}`,
+            reqUrl: `https://musicovery.com/api/V6/playlist.php?&fct=getfromartist&artistmbid=${artistId}&focusera=${simEra}`,
             apikey: apiKey,
             listenercountry: country,
             similargenres: simGenre,
