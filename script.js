@@ -11,8 +11,6 @@ playlistApp.playlistBox = document.querySelector('.playlist');
 playlistApp.appendButton = document.createElement('button')
 playlistApp.appendButton.classList.add('appendButton');
 playlistApp.appendButton.textContent = "Gimme more tunes!";
-// boolean variable to determine if the user wishes to create a new playlist or add to the existing one.
-playlistApp.newList = true;
 
 // this function takes in the artist name and country selected. The artist name is used to determine the artist's unique MusicBrainz ID number, which can be passed to the next API. The country parameter
 
@@ -96,6 +94,8 @@ playlistApp.getPlaylist = (artistId) => {
 // app initialize function - declaring global variables, event listener for button, and for in loop to populate dropdown list of countries
 
 playlistApp.init = () => {
+
+    
     
     // these listeners affect the rotation of the popularity knob if the user uses the range slider or the text input.
     const popularityKnob = document.querySelector('.popularityKnob');
@@ -110,10 +110,12 @@ playlistApp.init = () => {
 
     // event listener for when the user submits the artist name and other fields on the form.
     playlistApp.submitButton.addEventListener('click', () => {
+        // boolean variable to determine if the user wishes to create a new playlist or add to the existing one.
+        let newList = true;
         const artistInput = document.getElementById('artistName');
         const artist = artistInput.value;
         if (artistInput.value) {
-            playlistApp.newList = true;
+            newList = true;
             playlistApp.playlistBox.textContent = "";
             playlistApp.getArtistId(artist);
         } else {
@@ -132,7 +134,7 @@ playlistApp.init = () => {
 
 
 }
-// this function changes the css of the knob in order to make it spin!
+// this function changes the css of the knob in order to make it spin
 playlistApp.rotate = (value) => {
     document.querySelector('.knob').style.transform=`rotate(${value * 1.8 }deg)`;
      document.getElementById('popularity').value = value;
