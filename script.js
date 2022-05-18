@@ -36,6 +36,7 @@ playlistApp.getArtistId = (artist) => {
         }).then( (data) => {
             // this data point gathers the MusicBrainz ID number for the artist, which is passed to the musicovery API in the next function to generate the playlist.
             const artistId = data.artists[0].id;
+            console.log(artistId)
             playlistApp.getPlaylist(artistId);
         });
 }
@@ -47,25 +48,75 @@ playlistApp.getPlaylist = (artistId) => {
     const countryCodes = document.getElementById('countryCodes');
     const similarEras = document.getElementById('similarEras');
     const similarGenre = document.getElementById('similarGenre');
-    const apiKey = 'x0f621n9';
+    const apiKey = '0k6f12bsa';
     const country = countryCodes.value;
     const popularity = playlistApp.popularityBox.value;
     const simEra = similarEras.checked; 
     const simGenre = similarGenre.checked;
     // API call - to avoid a CORS error, a call to the Juno proxy server must be used. 
+
+    // const ajax = new XMLHttpRequest();
+    // ajax.timeout = 60000;
+    // const url = `https://stormy-dusk-08024.herokuapp.com/http://musicovery.com/api/V6/playlist.php?&fct=getfromartist&artistmbid=79239441-bfd5-4981-a70c-55c3f15c1287&popularitymax=100&popularitymin=50&focusera=true&obscureartists=false&apikey=0k6f12bsa`
+    // const asynchronous = true;
+    // const method = "GET";
+    // ajax.open(method,url,asynchronous);
+
+    // ajax.send();
+
+    // ajax.onreadystatechange = () => {
+    //     console.log(this.responseText);
+    // }
+
+    // const url = new URL(`https://stormy-dusk-08024.herokuapp.com/http://musicovery.com/api/V6/playlist.php?&fct=getfromartist&artistmbid=79239441-bfd5-4981-a70c-55c3f15c1287&apikey=0k6f12bsa`);
+    // this api defaults to XML delivery - the 'fmt: json' is necessary to receive the data in JSON format. 
+    // url.search = new URLSearchParams({
+    //     fmt: 'json',
+    //     // apikey: apiKey,
+    //     // listenercountry: country,
+    //     // similargenres: simGenre,
+    //     // popularitymax: popularity
+    // });
+
+    // fetch('http://musicovery.com/api/V6/playlist.php?&fct=getfromartist&artistmbid=79239441-bfd5-4981-a70c-55c3f15c1287&apikey=0k6f12bsal')
+
+    // const proxiedUrl = `http://musicovery.com/api/V6/playlist.php?&fct=getfromartist&artistmbid=${artistId}&focusera=${simEra}`;
+    // const url = new URL('https://stormy-dusk-08024.herokuapp.com/');
+
+    // url.search = new URLSearchParams({
+    //     'reqUrl': proxiedUrl,
+    //     'params[apikey]': apiKey,
+    //     // 'params[fct]': 'getfromartist',
+    //     // 'params[artistmbid]': artistId,
+    //     // 'params[focusera]': simEra,
+    //     'params[listenercountry]': country,
+    //     'params[similargenres]': simGenre,
+    //     'params[popularitymax]': popularity,
+    //     'proxyHeaders[Content-Type]': 'application/json',
+    //     'proxyHeaders[Accept]': 'application/json'
+    // })
+
+    // fetch(url)
     axios({
         method:'GET',
-        url: 'https://proxy.hackeryou.com',
+        url: `https://stormy-dusk-08024.herokuapp.com/`,
         responseType:'json',
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        },
         params: {
             // after much trial, the only way to get a successful call from this API was to include these fields in the reqUrl value. The other values were able to be appended in key values and used appropriately.
-            reqUrl: `https://musicovery.com/api/V6/playlist.php?&fct=getfromartist&artistmbid=${artistId}&focusera=${simEra}`,
+            reqUrl: `http://musicovery.com/api/V6/playlist.php?&fct=getfromartist&artistmbid=${artistId}&focusera=${simEra}`,
             apikey: apiKey,
             listenercountry: country,
             similargenres: simGenre,
             popularitymax: popularity
             }
-        }).then((res) => {
+        })
+        .then((res) => {
+            console.log(res)
             document.querySelector('ul').removeChild(playlistApp.loading);
             // this data point correlates to the array of track objects, which we will need to extract from to display our playlist.
             const playlist = res.data.tracks.track; 
